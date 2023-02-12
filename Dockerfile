@@ -1,14 +1,14 @@
 # Use an official Python runtime as the base image
-FROM python:3.9-alpine
+FROM python:3
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the requirements file to the image
-COPY requirements.txt /app
-
 # Install the dependencies
-RUN pip install -r requirements.txt
+RUN python -m pip install --upgrade pip
+RUN pip install flask
+RUN pip install spacy
+RUN python -m spacy download en_core_web_md
 
 # Copy the application code to the image
 COPY index.py /app
