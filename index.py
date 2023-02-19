@@ -28,7 +28,7 @@ def get_current_index():
         current_index = (current_index + 1) % len(IMAGE_INDICES) ##ensure cycle back if reached end of IMAGE_INDICES
         return IMAGE_INDICES[current_index]
 
-@app.route('/CurrentImage', methods=["GET"])
+@app.route('/currentImageIndex', methods=["GET"])
 def current_image():
     # Get the current image index
     image_index = get_current_index()
@@ -40,7 +40,7 @@ def current_image():
 # Load the medium Spacy model
 nlp = spacy.load("en_core_web_md")
 
-@app.route("/GetScore", methods=["GET"])
+@app.route("/getSemanticScore", methods=["GET"])
 def get_score():
     # Get the "user_answer" and "correct_answer" query parameters
     user_answer = urllib.parse.quote(request.args.get("user_answer"))
