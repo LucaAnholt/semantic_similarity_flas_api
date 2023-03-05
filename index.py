@@ -1,41 +1,12 @@
 import spacy
 from flask import Flask, request
 import urllib.parse
-from datetime import datetime, time
-import os
 
 app = Flask(__name__)
 
-# List of image indices (NOTE, THIS NEEDS TO BE UPDATED MANUALLY AND REFLECTS LENGTH OF SQLite DB e.g. number of images)
-IMAGE_INDICES = list(range(4))
-
-# Index of the current image
-current_index = 0
-
-def get_current_index():
-    global current_index
-    # Get the current time 
-    x = datetime.today()
-    # Define datetime for tomorrow at 9am:
-    y = x.replace(day=x.day+1, hour=9, minute=0, second=0, microsecond=0)
-
-    # If it's before the update time, return the current image index
-    if x < y:
-        return IMAGE_INDICES[current_index]
-
-    # If it's after the update time, increment the index and return the new image index
-    else:
-        current_index = (current_index + 1) % len(IMAGE_INDICES) ##ensure cycle back if reached end of IMAGE_INDICES
-        return IMAGE_INDICES[current_index]
-
-@app.route('/currentImageIndex', methods=["GET"])
-def current_image():
-    # Get the current image index
-    image_index = get_current_index()
-
-    # Return the index and path to the image file as a JSON response
-    return str(image_index)
-
+@app.route('/', methods=["GET"])
+def home():
+    return str("GuessInk API")
 
 # Load the medium Spacy model
 nlp = spacy.load("en_core_web_md")
@@ -56,4 +27,4 @@ def get_score():
     return str(similarity_score)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8080)
