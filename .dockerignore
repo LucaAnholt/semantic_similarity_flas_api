@@ -1,3 +1,5 @@
 # flyctl launch added from .gitignore
 **\.venv
 fly.toml
+README.md
+requirments.txt
