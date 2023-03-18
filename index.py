@@ -1,32 +1,37 @@
 import spacy
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import urllib.parse
-from datetime import datetime, time
-import os
+import sqlite3
 
 app = Flask(__name__)
 
-# List of image indices (NOTE, THIS NEEDS TO BE UPDATED MANUALLY AND REFLECTS LENGTH OF SQLite DB e.g. number of images)
-IMAGE_INDICES = list(range(4))
+@app.route('/url_and_answer', methods=["GET"])
+def next_url():
+    conn = sqlite3.connect('images_answers.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT url, answer FROM images JOIN answers ON answers.imageId = images.imageId;')
+    rows = cursor.fetchall()
 
-# Index of the current image
-current_index = 0
+    # Get the current row from a file (or start at the beginning)
+    try:
+        with open('current_row.txt', 'r') as f:
+            current_row = int(f.read().strip())
+    except:
+        current_row = 0
 
-def get_current_index():
-    global current_index
-    # Get the current time 
-    x = datetime.today()
-    # Define datetime for tomorrow at 9am:
-    y = x.replace(day=x.day+1, hour=9, minute=0, second=0, microsecond=0)
+    # If we've reached the end of the table, loop back to the beginning
+    if current_row >= len(rows):
+        current_row = 0
 
-    # If it's before the update time, return the current image index
-    if x < y:
-        return IMAGE_INDICES[current_index]
+    # Get the URL and answer for the current row
+    url, answer = rows[current_row]
+    current_row += 1
 
-    # If it's after the update time, increment the index and return the new image index
-    else:
-        current_index = (current_index + 1) % len(IMAGE_INDICES) ##ensure cycle back if reached end of IMAGE_INDICES
-        return IMAGE_INDICES[current_index]
+    # Save the current row to a file
+    with open('current_row.txt', 'w') as f:
+        f.write(str(current_row))
+
+    return jsonify({'url': url, 'answer': answer})
 
 @app.route('/currentImageIndex', methods=["GET"])
 def current_image():
@@ -34,8 +39,7 @@ def current_image():
     image_index = get_current_index()
 
     # Return the index and path to the image file as a JSON response
-    return str(image_index)
-
+    return str(secs)
 
 # Load the medium Spacy model
 nlp = spacy.load("en_core_web_md")
