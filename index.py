@@ -5,6 +5,10 @@ import sqlite3
 
 app = Flask(__name__)
 
+@app.route('/', methods=["GET"])
+def home():
+    return str("GuessInk API")
+
 @app.route('/url_and_answer', methods=["GET"])
 def next_url():
     conn = sqlite3.connect('images_answers.db')
@@ -32,14 +36,6 @@ def next_url():
         f.write(str(current_row))
 
     return jsonify({'url': url, 'answer': answer})
-
-@app.route('/currentImageIndex', methods=["GET"])
-def current_image():
-    # Get the current image index
-    image_index = get_current_index()
-
-    # Return the index and path to the image file as a JSON response
-    return str(secs)
 
 # Load the medium Spacy model
 nlp = spacy.load("en_core_web_md")
