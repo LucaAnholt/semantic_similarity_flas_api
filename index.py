@@ -10,31 +10,16 @@ def home():
     return str("GuessInk API")
 
 @app.route('/url_and_answer', methods=["GET"])
-def next_url():
+def get_url_and_answer():
     conn = sqlite3.connect('images_answers.db')
     cursor = conn.cursor()
     cursor.execute('SELECT url, answer FROM images JOIN answers ON answers.imageId = images.imageId;')
     rows = cursor.fetchall()
 
-    # Get the current row from a file (or start at the beginning)
-    try:
-        with open('current_row.txt', 'r') as f:
-            current_row = int(f.read().strip())
-    except:
-        current_row = 0
+    with open('current_row.txt', 'r') as f:
+        current_row = int(f.read().strip())
 
-    # If we've reached the end of the table, loop back to the beginning
-    if current_row >= len(rows):
-        current_row = 0
-
-    # Get the URL and answer for the current row
     url, answer = rows[current_row]
-    current_row += 1
-
-    # Save the current row to a file
-    with open('current_row.txt', 'w') as f:
-        f.write(str(current_row))
-
     return jsonify({'url': url, 'answer': answer})
 
 # Load the medium Spacy model
