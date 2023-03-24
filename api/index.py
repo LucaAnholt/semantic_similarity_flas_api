@@ -11,12 +11,12 @@ def home():
 
 @app.route('/url_and_answer', methods=["GET"])
 def get_url_and_answer():
-    conn = sqlite3.connect('images_answers.db')
+    conn = sqlite3.connect('../data/images_answers.db')
     cursor = conn.cursor()
     cursor.execute('SELECT url, answer FROM images JOIN answers ON answers.imageId = images.imageId;')
     rows = cursor.fetchall()
 
-    with open('current_row.txt', 'r') as f:
+    with open('../data/current_row.txt', 'r') as f:
         current_row = int(f.read().strip())
 
     url, answer = rows[current_row]

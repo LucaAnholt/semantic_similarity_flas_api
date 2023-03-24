@@ -4,6 +4,6 @@ RUN python -m pip install schedule
 
 WORKDIR /app
 
-COPY . /app
+COPY ./scheduler /app
 
 CMD ["python3", "schedule_url_answers.py"]

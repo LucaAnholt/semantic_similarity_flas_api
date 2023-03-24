@@ -10,7 +10,7 @@ def next_url():
 
     # Get the current row from a file (or start at the beginning)
     try:
-        with open('current_row.txt', 'r') as f:
+        with open('data/current_row.txt', 'r') as f:
             current_row = int(f.read().strip())
     except:
         current_row = 0
@@ -23,7 +23,7 @@ def next_url():
         current_row += 1
 
     # Save the current row to a file
-    with open('current_row.txt', 'w') as f:
+    with open('data/current_row.txt', 'w') as f:
         f.write(str(current_row))
 
 # Schedule the job to run at 9am every day
