@@ -2,12 +2,12 @@ services:
   scheduler:
     build: ./scheduler
     volumes:
-      - '//c/Users/LucaAnholt/semantic_similarity_flas_api/data/:/data/'
+      - ./data:/data
 
   api:
     build: ./api
     volumes:
-      - '//c/Users/LucaAnholt/semantic_similarity_flas_api/data/:/data/'
+      - ./data:/data
     ports:
       - "8080:8080"
 
