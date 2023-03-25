@@ -17,7 +17,7 @@ docker cp '<local path to db and text file i.e. blah/blah/data>' <docker contain
 e.g. for my local repo:
 
 ```
-docker cp 'C:/Users/LucaAnholt/OneDrive - Engitix Ltd/Documents/react-native/semantic_similarity_api/semantic_similarity_flas_api/data' 4e2287a598ed542cbd6fdf6722671c0bdf1fb8009b128cbbaa1f0693f513fa61:/data
+docker cp 'C:/Users/LucaAnholt/OneDrive - Engitix Ltd/Documents/react-native/semantic_similarity_api/semantic_similarity_flas_api/data' 3cc098e2ab9b:/data
 ```
 
 Then spin up the other docker image running to the full API using the same mount

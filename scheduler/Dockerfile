@@ -6,6 +6,4 @@ WORKDIR /app
 
 COPY . /app
 
-RUN mkdir -p /app/data
-
 CMD ["python3", "schedule_url_answers.py"]

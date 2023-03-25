@@ -1,16 +1,13 @@
-volumes:
-  - c/Users/LucaAnholt/django:/mydjango
-
 services:
   scheduler:
     build: ./scheduler
     volumes:
-      - mydata:/app/data
+      - '//c/Users/LucaAnholt/semantic_similarity_flas_api/data/:/data/'
 
   api:
     build: ./api
     volumes:
-      - mydata:/app/data
+      - '//c/Users/LucaAnholt/semantic_similarity_flas_api/data/:/data/'
     ports:
       - "8080:8080"
 
@@ -18,4 +15,3 @@ services:
     build: ./nginx
     ports:
       - "80:80"
-

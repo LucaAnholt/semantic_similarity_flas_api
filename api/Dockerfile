@@ -6,8 +6,6 @@ WORKDIR /app
 
 COPY . /app
 
-RUN mkdir -p /app/data
-
 ENV FLASK_APP=index.py
 
 EXPOSE 8080
