@@ -4,7 +4,9 @@ RUN apk del build_deps
 
 WORKDIR /app
 
-COPY ./api /app
+COPY . /app
+
+RUN mkdir -p /app/data
 
 ENV FLASK_APP=index.py
 

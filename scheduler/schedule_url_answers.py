@@ -2,11 +2,20 @@ import schedule
 import time
 import sqlite3
 
+import os
+
+arr = os.listdir()
+print(arr)
+
 def next_url():
-    conn = sqlite3.connect('images_answers.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT url, answer FROM images JOIN answers ON answers.imageId = images.imageId;')
-    rows = cursor.fetchall()
+    rows = []
+    try:
+        conn = sqlite3.connect('data/images_answers.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT url, answer FROM images JOIN answers ON answers.imageId = images.imageId;')
+        rows = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("could not source images_answers.db")
 
     # Get the current row from a file (or start at the beginning)
     try:

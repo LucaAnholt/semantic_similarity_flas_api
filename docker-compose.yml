@@ -1,0 +1,21 @@
+volumes:
+  - c/Users/LucaAnholt/django:/mydjango
+
+services:
+  scheduler:
+    build: ./scheduler
+    volumes:
+      - mydata:/app/data
+
+  api:
+    build: ./api
+    volumes:
+      - mydata:/app/data
+    ports:
+      - "8080:8080"
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+
