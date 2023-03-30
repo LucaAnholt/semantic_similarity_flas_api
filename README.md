@@ -10,18 +10,10 @@ docker volume create --name ImageIndexTrackerVolume
 Next spin up a container and add the local host files (db + text file tracking row index) into the mounted drive:
 
 ```
-docker run -v ImageIndexTrackerVolume:/app/data guessink/guessink-api-scheduler
-docker cp '<local path to db and text file i.e. blah/blah/data>' <docker container ID>:/data
+docker run --rm -v ImageIndexTrackerVolume:/data -v /mnt/c/Users/LucaAnholt/semantic_similarity_flas_api/data:/src alpine sh -c "cp -r /src/* /data/"
 ```
 
-e.g. for my local repo:
-
+Then run docker compose: 
 ```
-docker cp 'C:/Users/LucaAnholt/OneDrive - Engitix Ltd/Documents/react-native/semantic_similarity_api/semantic_similarity_flas_api/data' 3cc098e2ab9b:/data
+docker-compose up
 ```
-
-Then spin up the other docker image running to the full API using the same mount
-```
-docker run -ti -p 8080:8080 -v ImageIndexTrackerVolume:/app/data guessink/guessink-api-full-api
-```
-

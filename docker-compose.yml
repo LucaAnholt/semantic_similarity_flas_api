@@ -1,17 +1,20 @@
+version: "3.2"
 services:
   scheduler:
     build: ./scheduler
     volumes:
-      - ./data:/data
-
+      - ImageIndexTrackerVolume:/data
   api:
     build: ./api
     volumes:
-      - ./data:/data
+      - ImageIndexTrackerVolume:/data
     ports:
       - "8080:8080"
-
   nginx:
     build: ./nginx
     ports:
       - "80:80"
+
+volumes:
+  ImageIndexTrackerVolume:
+    external: true
