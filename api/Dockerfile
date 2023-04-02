@@ -1,7 +1,5 @@
 FROM guessink/guessink-api:guessink-api-base-image
 
-RUN apk del build_deps
-
 WORKDIR /app
 
 COPY . /app
