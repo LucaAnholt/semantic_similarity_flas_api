@@ -15,7 +15,7 @@ def get_url_and_answer():
     if os.path.exists('../data/images_answers.db'):
         conn = sqlite3.connect('../data/images_answers.db')
         cursor = conn.cursor()
-        cursor.execute('SELECT url, answer FROM images JOIN answers ON answers.imageId = images.imageId;')
+        cursor.execute('SELECT url, answer, location, material, size FROM images JOIN answers ON answers.imageId = images.imageId JOIN hints ON hints.imageId = images.imageId;')
         rows = cursor.fetchall()
     else:
         print("could not source images_answers.db")
@@ -23,8 +23,8 @@ def get_url_and_answer():
     with open('../data/current_row.txt', 'r') as f:
         current_row = int(f.read().strip())
 
-    url, answer = rows[current_row]
-    return jsonify({'url': url, 'answer': answer})
+    url, answer, location, material, size = rows[current_row]
+    return jsonify({'url': url, 'answer': answer, 'location' : location, 'material': material, 'size': size})
 
 # Load the medium Spacy model
 nlp = spacy.load("en_core_web_md")
