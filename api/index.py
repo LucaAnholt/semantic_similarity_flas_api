@@ -26,6 +26,7 @@ def get_url_and_answer():
     url, answer, location, material, size = rows[current_row]
     return jsonify({'url': url, 'answer': answer, 'location' : location, 'material': material, 'size': size})
 
+
 # Load the medium Spacy model
 nlp = spacy.load("en_core_web_md")
 
