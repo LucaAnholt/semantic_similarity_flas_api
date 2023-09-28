@@ -38,7 +38,6 @@ docker stop $(docker ps -a -q)
 and then 
 ```
 docker rm $(docker ps -a -q)
-
 ```
 Then, cd into the semantic_similarity_api folder in the root as sudo user and run:
 ```
