@@ -28,3 +28,20 @@ Then run docker compose:
 ```
 docker-compose up
 ```
+
+### If you need to update the server code...
+ssh into the server and stop all running containers and delete them:
+
+```
+docker stop $(docker ps -a -q)
+```
+and then 
+```
+docker rm $(docker ps -a -q)
+
+```
+Then, cd into the semantic_similarity_api folder in the root as sudo user and run:
+```
+sudo git pull
+sudo docker-compose build --no-cache
+```
