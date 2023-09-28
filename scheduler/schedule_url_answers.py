@@ -34,9 +34,9 @@ def next_url():
         f.write(str(current_row))
 
 # Schedule the job to run at 9am every day
-#schedule.every().day.at("09:00").do(next_url)
-schedule.every(5).seconds.do(next_url)
+schedule.every().day.at("06:00").do(next_url)
+#schedule.every(5).seconds.do(next_url)
 
 while True:
     schedule.run_pending()
-    time.sleep(5) #3600
+    time.sleep(3600) #3600
