@@ -3,7 +3,7 @@ FROM python:3-alpine
 RUN apk update && \
     apk add --no-cache gcc musl-dev && \
     apk add --no-cache --virtual=build_deps g++ gfortran && \
-    python -m pip install --upgrade pip flask spacy && \
+    python -m pip install --upgrade pip flask spacy gunicorn && \
     python -m spacy download en_core_web_md && \
     apk del build_deps && \
     rm -rf /var/cache/apk/*

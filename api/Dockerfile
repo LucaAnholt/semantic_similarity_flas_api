@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . /app
 
-ENV FLASK_APP=index.py
+RUN pip install gunicorn
 
 EXPOSE 8080
 
-CMD ["python3", "index.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "index:app"]
